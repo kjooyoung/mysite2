@@ -9,6 +9,7 @@ public class UserActionFactory extends AbstractActionFactory {
 	@Override
 	public Action getAction(String actionName) {
 		Action action = null;
+		System.out.println(actionName);
 		if("joinform".equals(actionName)) {
 			action = new JoinFormAction();
 		} else if("join".equals(actionName)) {
@@ -17,7 +18,15 @@ public class UserActionFactory extends AbstractActionFactory {
 			action = new JoinSuccessAction();
 		} else if("loginform".equals(actionName)) {
 			action = new LoginFormAction();
-		}else {
+		} else if("login".equals(actionName)) {
+			action = new LoginAction();
+		} else if("logout".equals(actionName)) {
+			action = new LogoutAction();
+		} else if("modifyform".equals(actionName)) {
+			action = new ModifyFormAction();
+		} else if("modify".equals(actionName)) {
+			action = new ModifyAction();
+		} else {
 			action = new IndexAction();
 		}
 		return action;
