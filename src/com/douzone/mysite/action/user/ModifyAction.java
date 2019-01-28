@@ -21,13 +21,12 @@ public class ModifyAction implements Action {
 		String name = request.getParameter("name");
 		String password = request.getParameter("password");
 		String gender = request.getParameter("gender");
-		System.out.println(password);
 		if("".equals(request.getParameter("password"))) {
-			System.out.println("비밀번호x");
 			new UserDao().update(authUser.getNo(), name, gender);
 		} else {
 			new UserDao().updateAll(authUser.getNo(), name, password, gender);
 		}
+		session.setAttribute("authuser", new UserDao().get(authUser.getNo()));
 		
 		WebUtils.redirect(request, response, request.getContextPath()+"/user?a=modifyform");
 	}
