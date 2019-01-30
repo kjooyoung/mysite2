@@ -159,11 +159,32 @@ a.del	{
 	font-weight: bold;
 }
 
-table #delete{
-	display:inherit;
+table .date{
+	height : 17.6px;
+	width: 140.33px;
+	display:inline;
 	float: right;
+	color : #AAAAAA;
+}
+#del-wrap{
+	display: inline;
+	height : 16px;
+	width: 159px;
+	margin-right: 10px;
+	margin-bottom: 1.6px;
+}
+#del-wrapp{
+	display: inline;
+	width: 20px;
+}
+table #delete{
+	height: 16px;
+	width: 16px;
 }
 
+#reply-btn{
+	float: right;
+}
 /*
 	게시판 리스트 페이징
 */

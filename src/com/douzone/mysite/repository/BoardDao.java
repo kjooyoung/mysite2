@@ -20,7 +20,7 @@ public class BoardDao {
 		try {
 			conn = getConnection();
 			String sql = "select distinct a.no, a.title, a.contents, "
-					+ "a.write_date, a.hit, a.g_no, a.o_no, a.depth, " + 
+					+ "date_format(a.write_date,'%Y-%m-%d %h:%i:%s'), a.hit, a.g_no, a.o_no, a.depth, " + 
 					"a.user_no, (select name from user where no = user_no), "
 					+ "(select count(*) from reply where board_no = a.no) "
 					+ "from board a, user b where a.user_no = b.no " + 
@@ -199,6 +199,30 @@ public class BoardDao {
 			pstmt.setString(1, title);
 			pstmt.setString(2, contents);
 			pstmt.setLong(3, no);
+			int count = pstmt.executeUpdate();
+			result = count == 1;
+		} catch (Exception e) {
+			System.out.println("error:"+e);
+		} finally {
+			try {
+				if(pstmt != null)pstmt.close();
+				if(conn != null)conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return result;
+	}
+	
+	public boolean updateHit(long no) {
+		boolean result = false;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = getConnection();
+			String sql = "update board set hit = hit + 1 where no = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, no);
 			int count = pstmt.executeUpdate();
 			result = count == 1;
 		} catch (Exception e) {

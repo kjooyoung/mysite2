@@ -36,7 +36,7 @@
 					</tr>
 				</table>
 				<div class="bottom">
-					<a href="${pageContext.servletContext.contextPath }/board?a=list">글목록</a>
+					<a href="${pageContext.servletContext.contextPath }/board?a=list&page=1">글목록</a>
 					<c:if test="${authuser.no eq board.userNo }">
 						<a href="${pageContext.servletContext.contextPath }/board?a=modifyform&no=${board.no}">글수정</a>
 					</c:if>
@@ -68,23 +68,53 @@
 						</c:if>
 					</form>
 					<c:forEach items="${reply }" var="vo">
-					<table class="tbl-ex">
-						<tr>
-							<td>${vo.userName }
-								<c:if test="${authuser.no eq vo.userNo }">
-								<div id="delete">
-									<a href="${pageContext.servletContext.contextPath }/reply?a=delete&no=${vo.no}&boardNo=${board.no}">
-										<img alt="" style="width : 20px" src="${pageContext.servletContext.contextPath }/assets/images/recycle.png">
-									</a>
-								</div>
-								</c:if>
-							</td>
-						</tr>
-						<tr>
-							<td>${vo.contents }</td>
-<%-- 							<td>${vo.writeDate }</td> --%>
-						</tr>
-					</table>
+					<c:choose>
+						<c:when test="${param.replyNo ne null and param.replyNo eq vo.no}">
+							<!-- updateReply -->
+							<form method="post" action="${pageContext.servletContext.contextPath }/reply">
+								<input type="hidden" name="a" value="update">
+								<input type="hidden" name="no" value="${vo.no }">
+								<input type="hidden" name="boardNo" value="${board.no}">
+								<table class="tbl-ex">
+								<tr>
+									<td>${vo.userName }
+										<div class="date">
+											<div id="del-wrap">${vo.writeDate }</div>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<textarea id="cont" name="contents">${vo.contents }</textarea>
+										<input id="reply-btn" type="submit" value="등록">
+									</td>
+								</tr>
+								</table>
+							</form>
+						</c:when>
+						<c:otherwise>
+							<table class="tbl-ex">
+								<tr>
+									<td>${vo.userName }
+										<c:if test="${authuser.no eq vo.userNo }">
+										<a href="${pageContext.servletContext.contextPath }/board?a=view&no=${board.no}&replyNo=${vo.no}">
+											<img id="delete" src="${pageContext.servletContext.contextPath }/assets/images/update.png">
+										</a>
+										<a href="${pageContext.servletContext.contextPath }/reply?a=delete&no=${vo.no}&boardNo=${board.no}">
+											<img id="delete" src="${pageContext.servletContext.contextPath }/assets/images/recycle.png">
+										</a>
+										</c:if>
+									<div class="date">
+										<div id="del-wrap">${vo.writeDate }</div>
+									</div>
+									</td>
+								</tr>
+								<tr>
+									<td>${vo.contents }</td>
+								</tr>
+							</table>
+						</c:otherwise>
+					</c:choose>
 					</c:forEach>
 				</div>
 			</div>

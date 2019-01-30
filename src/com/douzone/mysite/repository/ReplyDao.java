@@ -45,10 +45,10 @@ public class ReplyDao {
 		
 		try {
 			conn = getConnection();
-			String sql = "select a.no, a.contents, a.write_date, a.board_no, "
+			String sql = "select a.no, a.contents, date_format(a.write_date,'%Y-%m-%d %h:%i:%s'), a.board_no, "
 					+ " a.user_no, b.name from reply a, user b "
 					+ " where a.user_no = b.no "
-					+ " and a.board_no = ? order by a.no desc";
+					+ " and a.board_no = ? order by a.no";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setLong(1, no);
 			rs = pstmt.executeQuery();
@@ -87,6 +87,31 @@ public class ReplyDao {
 			String sql = "delete from reply where no = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setLong(1, no);
+			int count = pstmt.executeUpdate();
+			result = count == 1;
+		} catch (Exception e) {
+			System.out.println("error:"+e);
+		} finally {
+			try {
+				if(pstmt != null)pstmt.close();
+				if(conn != null)conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return result;
+	}
+	
+	public boolean update(long no, String contents) {
+		boolean result = false;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = getConnection();
+			String sql = "update reply set contents = ? where no = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, contents);
+			pstmt.setLong(2, no);
 			int count = pstmt.executeUpdate();
 			result = count == 1;
 		} catch (Exception e) {

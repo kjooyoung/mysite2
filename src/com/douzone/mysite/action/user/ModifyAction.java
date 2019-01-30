@@ -28,7 +28,7 @@ public class ModifyAction implements Action {
 		}
 		session.setAttribute("authuser", new UserDao().get(authUser.getNo()));
 		
-		WebUtils.redirect(request, response, request.getContextPath()+"/user?a=modifyform");
+		WebUtils.redirect(request, response, request.getContextPath()+"/user");
 	}
 
 }

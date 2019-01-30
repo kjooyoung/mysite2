@@ -12,7 +12,9 @@ public class ReplyActionFactory extends AbstractActionFactory {
 			action = new WriteAction();
 		} else if("delete".equals(actionName)) {
 			action = new DeleteAction();
-		}
+		} else if("update".equals(actionName)) {
+			action = new UpdateAction();
+		} 
 		
 		return action;
 	}

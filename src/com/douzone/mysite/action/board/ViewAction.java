@@ -20,6 +20,7 @@ public class ViewAction implements Action {
 		long no = Long.parseLong(request.getParameter("no"));
 		request.setAttribute("board", new BoardDao().getBoard(no));
 		request.setAttribute("reply", new ReplyDao().getList(no));
+		new BoardDao().updateHit(no);
 //		Cookie[] cookies =request.getCookies();
 //		if(cookies != null) {
 //			for(Cookie c : cookies) {

@@ -12,8 +12,19 @@ public class BoardVo {
 	private long userNo;
 	private String userName;
 	private int replyCount;
+	private int count;
+	private String regip;
+	private String filename;
 	
 	public BoardVo() {}
+
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
 
 	public long getNo() {
 		return no;
@@ -101,6 +112,22 @@ public class BoardVo {
 
 	public void setReplyCount(int replyCount) {
 		this.replyCount = replyCount;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public String getRegip() {
+		return regip;
+	}
+
+	public void setRegip(String regip) {
+		this.regip = regip;
 	}
 
 	@Override
