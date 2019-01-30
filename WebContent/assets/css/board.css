@@ -3,7 +3,6 @@
 
 #board { margin:20px auto;	width:550px; }
 
-
 #search_form {
 	width:100%;
 	margin:50px auto 20px auto; 
@@ -37,6 +36,7 @@ input#kwd	{
 	margin:10px auto; 
 	border-collapse:collapse;
 	border-bottom:2px solid #333;
+	border-top:2px solid #333;
 }
 
 .tbl-ex th, 
@@ -50,7 +50,7 @@ input#kwd	{
 	border-bottom:2px solid #333; 
 	background-color:#999; 
 	font-size:1.1em; 
-	color:#fff 
+	color:#fff;
 }
 
 .tbl-ex td {
@@ -134,6 +134,34 @@ a.del	{
 	height:20px; 
 	background:url("/mysite2/assets/images/recycle.png") no-repeat 0 0;
 	font-size:0;
+}
+
+/* 댓글 */
+#reply { margin:20px auto;	width:550px; }
+
+#cont{
+	width: 510px;
+	height: 30px;
+	padding: 10px;
+	resize: none;
+	outline: none;	
+}
+
+#reply .tbl-ex{
+	border-top:2px solid #333;
+	border-bottom:2px solid #333; 
+	font-size:1.1em; 
+/* 	color:#fff;  */
+	padding:5px;
+}
+
+#reply .tbl-ex tr:first-child{
+	font-weight: bold;
+}
+
+table #delete{
+	display:inherit;
+	float: right;
 }
 
 /*

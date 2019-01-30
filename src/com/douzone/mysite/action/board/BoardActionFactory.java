@@ -22,7 +22,7 @@ public class BoardActionFactory extends AbstractActionFactory {
 			action = new ModifyAction();
 		} else if("delete".equals(actionName)) {
 			action = new DeleteAction();
-		}
+		} 
 		
 		return action;
 	}

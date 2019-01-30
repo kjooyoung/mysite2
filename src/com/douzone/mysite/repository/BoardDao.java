@@ -11,7 +11,7 @@ import java.util.List;
 import com.douzone.mysite.vo.BoardVo;
 
 public class BoardDao {
-	public List<BoardVo> getList(String kwd){
+	public List<BoardVo> getList(String kwd, int pageStart, int perPageNum){
 		List<BoardVo> list = new ArrayList<BoardVo>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -21,12 +21,16 @@ public class BoardDao {
 			conn = getConnection();
 			String sql = "select distinct a.no, a.title, a.contents, "
 					+ "a.write_date, a.hit, a.g_no, a.o_no, a.depth, " + 
-					"a.user_no, (select name from user where no = user_no) "
+					"a.user_no, (select name from user where no = user_no), "
+					+ "(select count(*) from reply where board_no = a.no) "
 					+ "from board a, user b where a.user_no = b.no " + 
-					"and title like ? or contents like ? order by g_no desc, o_no asc";
+					"and a.title like ? or a.contents like ? order by g_no desc, o_no asc "
+					+ "limit ?,?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, "%"+kwd+"%");
 			pstmt.setString(2, "%"+kwd+"%");
+			pstmt.setInt(3, pageStart);
+			pstmt.setInt(4, perPageNum);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -41,6 +45,7 @@ public class BoardDao {
 				vo.setDepth(rs.getInt(8));
 				vo.setUserNo(rs.getInt(9));
 				vo.setUserName(rs.getString(10));
+				vo.setReplyCount(rs.getInt(11));
 				list.add(vo);
 			}
 			
@@ -233,7 +238,7 @@ public class BoardDao {
 		return result;
 	}
 	
-	public int getCount() {
+	public int getTotalCount(String kwd) {
 		int count = 0;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -241,8 +246,11 @@ public class BoardDao {
 		
 		try {
 			conn = getConnection();
-			String sql = "select count(*) from board";
+			String sql = "select count(*) from board "
+					+ "where title like ? or contents like ?";
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+kwd+"%");
+			pstmt.setString(2, "%"+kwd+"%");
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {

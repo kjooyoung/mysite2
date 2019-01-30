@@ -16,7 +16,7 @@ public class DeleteAction implements Action {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		long no = Long.parseLong(request.getParameter("no"));
 		new BoardDao().delete(no);
-		WebUtils.redirect(request, response, request.getContextPath()+"/board?a=list");
+		WebUtils.redirect(request, response, request.getContextPath()+"/board?a=list&page=1");
 	}
 
 }

@@ -9,16 +9,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.douzone.mvc.action.AbstractActionFactory;
 import com.douzone.mvc.action.Action;
-import com.douzone.mysite.action.user.UserActionFactory;
+import com.douzone.mysite.action.board.BoardActionFactory;
+import com.douzone.mysite.action.reply.ReplyActionFactory;
 
-@WebServlet("/user")
-public class UserServlet extends HttpServlet {
+@WebServlet("/reply")
+public class ReplyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		AbstractActionFactory af = new UserActionFactory();
-		
 		String actionName = request.getParameter("a");
+		
+		AbstractActionFactory af = new ReplyActionFactory();
 		Action action = af.getAction(actionName);
 		action.execute(request, response);
 	}

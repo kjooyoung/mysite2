@@ -40,9 +40,52 @@
 					<c:if test="${authuser.no eq board.userNo }">
 						<a href="${pageContext.servletContext.contextPath }/board?a=modifyform&no=${board.no}">글수정</a>
 					</c:if>
-					<c:if test="${authuser.no ne null and authuser.no ne board.userNo }">
+					<c:if test="${authuser.no ne null }">
 					<a href="${pageContext.servletContext.contextPath }/board?a=writeform&no=${board.no}">답글쓰기</a>
 					</c:if>
+				</div>
+				<div id="reply">
+					<form method="post" action="${pageContext.servletContext.contextPath }/reply">
+						<input type="hidden" name="a" value="write">
+						<input type="hidden" name="boardNo" value="${board.no}">
+						<input type="hidden" name="userNo" value="${authuser.no }">
+						<table class="tbl-ex">
+							<tr>
+								<th>댓글</th>
+							</tr>
+						</table>
+						<c:if test="${authuser ne null }">
+						<table class="tbl-ex">
+							<tr>
+								<td>
+									<textarea id="cont" name="contents"></textarea>
+								</td>
+							</tr>
+						</table>
+						<div class="bottom">
+							<input type="submit" value="등록">
+						</div>
+						</c:if>
+					</form>
+					<c:forEach items="${reply }" var="vo">
+					<table class="tbl-ex">
+						<tr>
+							<td>${vo.userName }
+								<c:if test="${authuser.no eq vo.userNo }">
+								<div id="delete">
+									<a href="${pageContext.servletContext.contextPath }/reply?a=delete&no=${vo.no}&boardNo=${board.no}">
+										<img alt="" style="width : 20px" src="${pageContext.servletContext.contextPath }/assets/images/recycle.png">
+									</a>
+								</div>
+								</c:if>
+							</td>
+						</tr>
+						<tr>
+							<td>${vo.contents }</td>
+<%-- 							<td>${vo.writeDate }</td> --%>
+						</tr>
+					</table>
+					</c:forEach>
 				</div>
 			</div>
 		</div>

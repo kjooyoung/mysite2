@@ -2,7 +2,7 @@ package com.douzone.mysite.vo;
 
 public class Criteria {
 	private int page; //보여줄 페이지
-	private int perPageNum; //페이지당 보여줄 페이지 수
+	private int perPageNum; //페이지당 보여줄 게시글 수
 	
 	// limit 구문에서 시작 부분에 필요한 값을 반환
 	public int getPageStart() {
@@ -30,7 +30,7 @@ public class Criteria {
 	public void setPerPageNum(int perPageNum) {
 		if(perPageNum <= 0 || perPageNum > 100) {
 			// 페이지는 1페이지부터임으로 0보다 작거나 같은값일 경우 무조건 첫번째 페이지로 설정되도록 함
-			this.perPageNum = 10;
+			this.perPageNum = 3;
 		} else {
 			this.perPageNum = perPageNum;
 		}

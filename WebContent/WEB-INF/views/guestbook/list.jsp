@@ -48,7 +48,6 @@
 							<tr>
 								<td colspan=4>
 								${fn:replace(vo.message, newline, "<br>") }
-								${vo.message }
 								</td>
 							</tr>
 						</table>

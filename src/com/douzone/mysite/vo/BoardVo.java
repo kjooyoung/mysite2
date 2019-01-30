@@ -11,6 +11,7 @@ public class BoardVo {
 	private int depth;
 	private long userNo;
 	private String userName;
+	private int replyCount;
 	
 	public BoardVo() {}
 
@@ -92,6 +93,14 @@ public class BoardVo {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public int getReplyCount() {
+		return replyCount;
+	}
+
+	public void setReplyCount(int replyCount) {
+		this.replyCount = replyCount;
 	}
 
 	@Override

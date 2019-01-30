@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.douzone.mvc.action.Action;
 import com.douzone.mvc.util.WebUtils;
 import com.douzone.mysite.repository.BoardDao;
+import com.douzone.mysite.repository.ReplyDao;
 import com.douzone.mysite.vo.BoardVo;
 
 public class ViewAction implements Action {
@@ -18,7 +19,7 @@ public class ViewAction implements Action {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		long no = Long.parseLong(request.getParameter("no"));
 		request.setAttribute("board", new BoardDao().getBoard(no));
-		
+		request.setAttribute("reply", new ReplyDao().getList(no));
 //		Cookie[] cookies =request.getCookies();
 //		if(cookies != null) {
 //			for(Cookie c : cookies) {
