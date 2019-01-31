@@ -1,6 +1,7 @@
 package com.douzone.mysite.action.board;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -12,6 +13,7 @@ import com.douzone.mvc.util.WebUtils;
 import com.douzone.mysite.repository.BoardDao;
 import com.douzone.mysite.repository.ReplyDao;
 import com.douzone.mysite.vo.BoardVo;
+import com.douzone.mysite.vo.ReplyVo;
 
 public class ViewAction implements Action {
 
@@ -27,7 +29,10 @@ public class ViewAction implements Action {
 //				System.out.println(c.getName());
 //			}
 //		}
-		
+		List<ReplyVo> list = new ReplyDao().getList(no);
+		for(ReplyVo vo : list) {
+			System.out.println(vo);
+		}
 		WebUtils.forward(request, response, "/WEB-INF/views/board/view.jsp");
 	}
 

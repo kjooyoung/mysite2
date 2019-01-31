@@ -69,12 +69,13 @@
 					</form>
 					<c:forEach items="${reply }" var="vo">
 					<c:choose>
-						<c:when test="${param.replyNo ne null and param.replyNo eq vo.no}">
-							<!-- updateReply -->
+						<c:when test="${param.replyNo ne null and param.replyNo eq vo.no and param.reReply eq null}">
+							<!-- 댓글 수정 폼 -->
 							<form method="post" action="${pageContext.servletContext.contextPath }/reply">
 								<input type="hidden" name="a" value="update">
 								<input type="hidden" name="no" value="${vo.no }">
 								<input type="hidden" name="boardNo" value="${board.no}">
+								<input type="hidden" name="userNo" value="${authuser.no }">
 								<table class="tbl-ex">
 								<tr>
 									<td>${vo.userName }
@@ -92,8 +93,15 @@
 								</table>
 							</form>
 						</c:when>
-						<c:otherwise>
-							<table class="tbl-ex">
+						<c:when test="${param.replyNo ne null and param.replyNo eq vo.no and param.reReply eq 1}">
+							<!-- 대댓글 폼 -->
+							<form method="post" action="${pageContext.servletContext.contextPath }/reply">
+								<input type="hidden" name="a" value="write">
+								<input type="hidden" name="reply" value="true">
+								<input type="hidden" name="no" value="${vo.no }">
+								<input type="hidden" name="boardNo" value="${board.no}">
+								<input type="hidden" name="userNo" value="${authuser.no }">
+								<table class="tbl-ex">
 								<tr>
 									<td>${vo.userName }
 										<c:if test="${authuser.no eq vo.userNo }">
@@ -104,6 +112,53 @@
 											<img id="delete" src="${pageContext.servletContext.contextPath }/assets/images/recycle.png">
 										</a>
 										</c:if>
+										<a href="${pageContext.servletContext.contextPath }/board?a=view&no=${board.no}&replyNo=${vo.no}&reReply=1">
+											<img id="delete" src="${pageContext.servletContext.contextPath }/assets/images/img.png">
+										</a>
+									<div class="date">
+										<div id="del-wrap">${vo.writeDate }</div>
+									</div>
+									</td>
+								</tr>
+								<tr>
+									<td>${vo.contents }</td>
+								</tr>
+								<tr>
+									<td style="font-weight: bold;">
+										<img id="delete" src="${pageContext.servletContext.contextPath }/assets/images/img.png">
+										${authuser.name }
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<textarea id="cont" name="contents"></textarea>
+										<input id="reply-btn" type="submit" value="등록">
+									</td>
+								</tr>
+							</table>
+							</form>
+						</c:when>
+						<c:otherwise>
+							<!-- 기본 뷰 -->
+							<table class="tbl-ex">
+								<tr>
+									<c:if test="${vo.depth ne 0 }">
+									<td rowspan="2" style='width:10px; padding-left:${30 * vo.depth}px; ' >
+										<img id="delete" src="${pageContext.servletContext.contextPath }/assets/images/img.png">
+									</td>
+									</c:if>
+									<td>${vo.userName }
+										<c:if test="${authuser.no eq vo.userNo }">
+										<a href="${pageContext.servletContext.contextPath }/board?a=view&no=${board.no}&replyNo=${vo.no}">
+											<img id="delete" src="${pageContext.servletContext.contextPath }/assets/images/update.png">
+										</a>
+										<a href="${pageContext.servletContext.contextPath }/reply?a=delete&no=${vo.no}&boardNo=${board.no}">
+											<img id="delete" src="${pageContext.servletContext.contextPath }/assets/images/recycle.png">
+										</a>
+										</c:if>
+										<a href="${pageContext.servletContext.contextPath }/board?a=view&no=${board.no}&replyNo=${vo.no}&reReply=1">
+											<img id="delete" src="${pageContext.servletContext.contextPath }/assets/images/img.png">
+										</a>
 									<div class="date">
 										<div id="del-wrap">${vo.writeDate }</div>
 									</div>

@@ -7,6 +7,9 @@ public class ReplyVo {
 	private long boardNo;
 	private long userNo;
 	private String userName;
+	private long groupNo;
+	private long orderNo;
+	private long depth;
 	
 	public ReplyVo() {}
 
@@ -58,10 +61,36 @@ public class ReplyVo {
 		this.userName = userName;
 	}
 
+	public long getGroupNo() {
+		return groupNo;
+	}
+
+	public void setGroupNo(long groupNo) {
+		this.groupNo = groupNo;
+	}
+
+	public long getOrderNo() {
+		return orderNo;
+	}
+
+	public void setOrderNo(long orderNo) {
+		this.orderNo = orderNo;
+	}
+
+	public long getDepth() {
+		return depth;
+	}
+
+	public void setDepth(long depth) {
+		this.depth = depth;
+	}
+
 	@Override
 	public String toString() {
 		return "ReplyVo [no=" + no + ", contents=" + contents + ", writeDate=" + writeDate + ", boardNo=" + boardNo
-				+ ", userNo=" + userNo + "]";
+				+ ", userNo=" + userNo + ", userName=" + userName + ", groupNo=" + groupNo + ", orderNo=" + orderNo
+				+ ", depth=" + depth + "]";
 	}
+
 	
 }
