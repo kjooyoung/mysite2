@@ -12,7 +12,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
-$(window).scroll(function(){
+/* $(window).scroll(function(){
 	var $window = $(this);
 	var scrollTop = $window.scrollTop();
 	var windowHeight = $window.height();
@@ -22,6 +22,27 @@ $(window).scroll(function(){
 	if(documentHeight < scrollTop + windowHeight + 5){
 		alert("dd");
 	}
+}); */
+
+$(function(){
+	$.ajax({
+		url: "${pageContext.servletContext.contextPath }/api/guestbook?a=ajax-list",
+		type: "get",
+		dataType: "json",
+		data: "",
+		success: function(response){
+			$(response).each(function(index, vo){
+				var htmls = "<li data-no=''><strong>"+vo.name+"</strong>"+
+						"<p>"+vo.message+"</p>"+
+					"<strong></strong><a href='' data-no=''>삭제</a></li>";
+				
+				$("#list-guestbook").append(htmls);				
+			});
+		},
+		error: function(xhr, status, e){
+			console.error(status+":"+e);
+		}
+	});
 });
 </script>
 </head>
@@ -40,26 +61,6 @@ $(window).scroll(function(){
 				<ul id="list-guestbook">
 
 					<li data-no=''>
-						<strong>지나가다가</strong>
-						<p>
-							별루입니다.<br>
-							비번:1234 -,.-
-						</p>
-						<strong></strong>
-						<a href='' data-no=''>삭제</a> 
-					</li>
-					
-					<li data-no=''>
-						<strong>둘리</strong>
-						<p>
-							안녕하세요<br>
-							홈페이지가 개 굿 입니다.
-						</p>
-						<strong></strong>
-						<a href='' data-no=''>삭제</a> 
-					</li>
-
-					<li data-no=''>
 						<strong>주인</strong>
 						<p>
 							아작스 방명록 입니다.<br>
@@ -69,9 +70,9 @@ $(window).scroll(function(){
 						<a href='' data-no=''>삭제</a> 
 					</li>
 					
-									
 				</ul>
 			</div>
+			<input type="hidden" id="auth-no" value="${authuser.no }">
 			<div id="dialog-delete-form" title="메세지 삭제" style="display:none">
   				<p class="validateTips normal">작성시 입력했던 비밀번호를 입력하세요.</p>
   				<p class="validateTips error" style="display:none">비밀번호가 틀립니다.</p>
