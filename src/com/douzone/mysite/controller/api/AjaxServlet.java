@@ -1,4 +1,4 @@
-package com.douzone.mysite.controller;
+package com.douzone.mysite.controller.api;
 
 import java.io.IOException;
 import java.io.PrintWriter;

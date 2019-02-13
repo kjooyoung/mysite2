@@ -1,4 +1,4 @@
-package com.douzone.mysite.controller;
+package com.douzone.mysite.controller.api;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,8 +18,6 @@ public class AjaxServlet2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("application/json; charset=utf-8");
-		PrintWriter pw = response.getWriter();
 		
 		// java object -> json string
 		UserVo vo = new UserVo();
@@ -27,6 +25,9 @@ public class AjaxServlet2 extends HttpServlet {
 		vo.setName("둘리");
 		vo.setEmail("dooly@gmail.com");
 		vo.setGender("male");
+		
+		response.setContentType("application/json; charset=utf-8");
+		PrintWriter pw = response.getWriter();
 		
 		JSONObject jsonObject = JSONObject.fromObject(vo);
 		String jsonString = jsonObject.toString();
