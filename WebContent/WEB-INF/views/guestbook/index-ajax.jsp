@@ -173,7 +173,6 @@ $(function(){
 	// live event (미래에 동적으로 생성될 엘리먼트의 이벤트)
 	$(document).on("click", "#list-guestbook li a", function(event){
 		event.preventDefault();
-		console.log("clicked:"+$(this).data("no"));
 		$("#hidden-no").val($(this).data("no"));
 		dialogDelete.data('no',$(this).data("no")).dialog("open");
 	});
