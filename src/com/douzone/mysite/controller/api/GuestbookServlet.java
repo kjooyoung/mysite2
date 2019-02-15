@@ -9,14 +9,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.douzone.mvc.action.AbstractActionFactory;
 import com.douzone.mvc.action.Action;
+import com.douzone.mysite.action.guestbook.GuestbookActionFactory;
 import com.douzone.mysite.action.user.UserActionFactory;
 
-@WebServlet("/api/user")
-public class APIUserServlet extends HttpServlet {
+@WebServlet("/api/guestbook")
+public class GuestbookServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		AbstractActionFactory af = new UserActionFactory();
+		AbstractActionFactory af = new GuestbookActionFactory();
 		
 		String actionName = request.getParameter("a");
 		Action action = af.getAction(actionName);

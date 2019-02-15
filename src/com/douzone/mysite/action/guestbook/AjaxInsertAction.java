@@ -1,10 +1,6 @@
 package com.douzone.mysite.action.guestbook;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,27 +12,19 @@ import com.douzone.mysite.vo.GuestbookVo;
 
 import net.sf.json.JSONObject;
 
-public class AjaxListAction implements Action {
+public class AjaxInsertAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		String sPage = request.getParameter("p");
-		if("".equals(sPage)) {
-			sPage = "1";
-		}
-		if(sPage.matches("\\d*") == false) {
-			sPage = "1";
-		}
-		int page = Integer.parseInt(sPage);
-		
-		List<GuestbookVo> list = new GuestbookDao().getList(page);
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("result", "success");
-		map.put("data", list);
+		GuestbookVo vo = new GuestbookVo();
+		System.out.println(request.getParameter("name"));
+		vo.setName(request.getParameter("name"));
+		vo.setMessage(request.getParameter("message"));
+		vo.setPassword(request.getParameter("password"));
+		vo.setNo(new GuestbookDao().insert(vo));
 		
 		response.setContentType("application/json; charset=utf-8");
-		JSONObject jsonObject = JSONObject.fromObject(map);
+		JSONObject jsonObject = JSONObject.fromObject(vo);
 		String jsonString = jsonObject.toString();
 		
 		response.getWriter().println(jsonString);
